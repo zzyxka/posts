@@ -11,7 +11,6 @@ date: 2022-05-03 00:00
 - [x] 支持 ES6+
 - [x] 支持 React(JSX)
 - [x] 开发/生产环境分离
-- [ ] 支持 TSX
 
 ```bash
 mkdir react-zzy-prj
@@ -238,7 +237,11 @@ module.exports = {
 ## 开发环境打包
 
 
-`npm install --save-dev webpack-dev-server`，CV 一份 webpack.config.prod.js 到 webpack.config.dev.js，然后做如下调整。
+```bash
+npm install --save-dev webpack-dev-server
+```
+
+CV 一份 webpack.config.prod.js 到 webpack.config.dev.js，然后做如下调整。
 
 > webpack.config.prod.js 下也增加了 mode 参数，比较简单。
 
@@ -271,19 +274,130 @@ module.exports = {
 ```
 
 
+# 加入样式相关内容
+
+目标：
+- [x] css & css module
+- [x] 支持 less & 组件库 shineout
+- [ ] 支持 postcss(浏览器前缀)
+
+## css
+
+```bash
+npm install --save-dev style-loader css-loader
+```
+
+```js
+// webpack.config.xxx.js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+	// ...
+	module: {
+		rules: [
+			{
+				test: /\.css$/i,
+				use: ['style-loader', 'css-loader'],
+				exclude: /node_modules/,
+			},
+      // ...
+		],
+	},
+};
+```
+
+```css
+/* App.css */
+h1 {
+  color: yellowgreen;
+}
+```
+
+```jsx
+// App.jsx
+import './App.css';
+// ...
+```
+
+
+
+## css modules
+```js
+// webpack.config.xxx.js
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+
+module.exports = {
+	// ...
+	module: {
+		rules: [
+			{
+				test: /\.css$/i,
+				use: [
+					'style-loader',
+					{
+						loader: 'css-loader',
+						options: {
+							modules: true,
+						},
+					},
+				],
+				exclude: /node_modules/,
+			},
+      // ...
+		],
+	},
+};
+```
+## less & 组件库 shineout
+
+```bash
+npm install less less-loader --save-dev
+npm install shineout
+```
+
+```js
+// webpack.config.xxx.js
+const webpack = require('webpack');
+
+module.exports = {
+  // ...
+	plugins: [
+    // ...
+		new webpack.DefinePlugin({
+			'process.env': {
+				CSS_MODULE: true,
+			},
+		}),
+	],
+	module: {
+		rules: [
+			{
+				test: /\.less$/i,
+				use: [
+					'style-loader',
+					{
+						loader: 'css-loader',
+						options: {
+							modules: true,
+						},
+					},
+					'less-loader',
+				],
+			},
+      // ...
+		],
+	},
+};
+```
+
+
 # 加入周边
 
 目标：
 - [ ] react-router@v4
 - [ ] redux
-
-# 加入样式相关内容
-
-目标：
-
-- [ ] 支持 less
-- [ ] 支持 postcss(浏览器前缀)
-- [ ] 组件库 shineout
 
 # 制作创建应用的脚手架
 
@@ -292,14 +406,11 @@ module.exports = {
 # 开发环境优化
 
 目标：
-
 - [ ] HMR
-- [ ] devTools / sourceMap
 
 # 生产环境优化
 
 目标：
-
 - [ ] 分离 CSS
 - [ ] 图片处理
 - [ ] tree shaking

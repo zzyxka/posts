@@ -279,7 +279,7 @@ module.exports = {
 目标：
 - [x] css & css module
 - [x] 支持 less & 组件库 shineout
-- [ ] 支持 postcss(浏览器前缀)
+- [x] 支持 postcss(浏览器前缀)
 
 ## css
 
@@ -392,6 +392,15 @@ module.exports = {
 };
 ```
 
+
+## postcss
+
+```bash
+npm i postcss-loader astroturf
+npm i autoprefixer
+```
+
+整理项目结构，修改相关 loader。
 
 # 加入周边
 

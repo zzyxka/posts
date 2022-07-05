@@ -4,7 +4,7 @@ description: 搭建一个简单的React全家桶应用，串联工具/技术知�
 date: 2022-05-03 00:00
 ---
 
-# 一个基础的 react 应用
+# 基础的 react 应用
 
 目标：
 - [x] webpack5
@@ -274,7 +274,7 @@ module.exports = {
 ```
 
 
-# 加入样式相关内容
+# 样式处理
 
 目标：
 - [x] css & css module
@@ -400,28 +400,30 @@ npm i postcss-loader astroturf
 npm i autoprefixer
 ```
 
-整理项目结构，修改相关 loader。
+postcss 不再赘述。整理项目结构，修改相关 loader，备份分支 nostore，后续改分支不加入任何状态管理内容，用于某些场景使用。
 
-# 加入周边
-
-目标：
-- [ ] react-router@v4
-- [ ] redux
-
-# 制作创建应用的脚手架
+https://github.com/zzyxka/react-zzy-prj/releases/tag/nostore
 
 
+# 添加 ESlint
 
-# 开发环境优化
+```bash
+npm install eslint --save-dev
+./node_modules/.bin/eslint --init # 按命令行指引选所需内容
+```
 
-目标：
-- [ ] HMR
+使用 `.eslintignore` 来忽略不需要进行规则检查的文件/目录。
 
-# 生产环境优化
+整理项目结构，将非配置类的代码移动到 src 目录下，增加别名、后缀省略等相关人性化配置：
 
-目标：
-- [ ] 分离 CSS
-- [ ] 图片处理
-- [ ] tree shaking
-- [ ] 多线程打包
-- [ ] dll 缓存
+```js
+exports.baseConf = {
+  resolve: {
+    modules: ['node_modules', 'web_modules'],
+    extensions: ['.js', '.jsx', '.css', '.json'],
+    alias: {
+      src: path.resolve(__dirname, './src/'),
+    },
+  },
+};
+```

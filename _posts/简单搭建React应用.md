@@ -4,6 +4,18 @@ description: 搭建一个简单的React全家桶应用，串联工具/技术知�
 date: 2022-05-03 00:00
 ---
 
+搭建一个简单的React全家桶应用，串联工具/技术知识，方便日后的持续学习使用。
+
+本篇为第一篇，完成以下内容：
+- 基于 webpack5 搭建了一个支持 ES6+ 的基础 React 应用
+- 接入了 css-modules/less/postcss 样式处理
+- 引入了UI组件库 shineout，添加了 ESlint 规则
+- **不包含**全局状态管理和路由切换
+
+本篇源码 nostore-v1.0.0：https://github.com/zzyxka/react-zzy-prj/releases/tag/nostore
+
+<!-- more -->
+
 # 基础的 react 应用
 
 目标：
@@ -71,7 +83,7 @@ npm run build # 执行后生成 dist 目录，访问目录下的 index.html 展�
 
 ## ES6 支持
 
-使用 babel + [babel-loader]([babel/babel-loader: 📦 Babel loader for webpack (github.com)](https://github.com/babel/babel-loader)) + [@babel/preset-env](https://babel.docschina.org/docs/en/babel-preset-env) 编译 ES6+ 语法。
+使用 babel + [babel-loader](https://github.com/babel/babel-loader) + [@babel/preset-env](https://babel.docschina.org/docs/en/babel-preset-env) 编译 ES6+ 语法。
 
 ```js
 // index.js
@@ -253,12 +265,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   // ...
-	mode: 'development', // 配置打包模式
-	devtool: 'inline-source-map', // source-map
-	devServer: {
-		// devServer
-		static: './dist',
-	},
+  mode: 'development', // 配置打包模式
+  devtool: 'inline-source-map', // source-map
+  devServer: {
+    // devServer
+    static: './dist',
+  },
   // ...
 };
 ```
@@ -293,17 +305,17 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	// ...
-	module: {
-		rules: [
-			{
-				test: /\.css$/i,
-				use: ['style-loader', 'css-loader'],
-				exclude: /node_modules/,
-			},
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+        exclude: /node_modules/,
+      },
       // ...
-		],
-	},
+    ],
+  },
 };
 ```
 
@@ -329,25 +341,25 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	// ...
-	module: {
-		rules: [
-			{
-				test: /\.css$/i,
-				use: [
-					'style-loader',
-					{
-						loader: 'css-loader',
-						options: {
-							modules: true,
-						},
-					},
-				],
-				exclude: /node_modules/,
-			},
+  // ...
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+        ],
+        exclude: /node_modules/,
+      },
       // ...
-		],
-	},
+    ],
+  },
 };
 ```
 ## less & 组件库 shineout
@@ -363,32 +375,32 @@ const webpack = require('webpack');
 
 module.exports = {
   // ...
-	plugins: [
+  plugins: [
     // ...
-		new webpack.DefinePlugin({
-			'process.env': {
-				CSS_MODULE: true,
-			},
-		}),
-	],
-	module: {
-		rules: [
-			{
-				test: /\.less$/i,
-				use: [
-					'style-loader',
-					{
-						loader: 'css-loader',
-						options: {
-							modules: true,
-						},
-					},
-					'less-loader',
-				],
-			},
+    new webpack.DefinePlugin({
+      'process.env': {
+        CSS_MODULE: true,
+      },
+    }),
+  ],
+  module: {
+    rules: [
+      {
+        test: /\.less$/i,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              modules: true,
+            },
+          },
+          'less-loader',
+        ],
+      },
       // ...
-		],
-	},
+    ],
+  },
 };
 ```
 

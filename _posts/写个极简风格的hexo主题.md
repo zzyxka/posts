@@ -12,7 +12,7 @@ hexo 的主题有很多，选择困难症，决定写个极简风格的主题，
 - [x] **关于我页** 展示
 - [x] **其他** 文章搜索/样式处理(移动端兼容)
 
-源码地址待补充：xxx
+源码地址：https://github.com/zzyxka/baozi
 
 > 参考文章：
 > https://cloud.tencent.com/developer/article/1440353
